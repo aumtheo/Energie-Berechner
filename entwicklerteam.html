@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entwicklerteam</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: #222;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== Header & Navigation ===== */
+    header {
+        background-color: #5c6c3d;
+        padding: 25px 0;               /* größerer Header */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+    nav ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 60px;                     /* weiter auseinander */
+    }
+    nav ul li a {
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;             /* größere Schrift */
+        transition: color .3s;
+    }
+    nav ul li.active a,
+    nav ul li a:hover {
+        color: #df9e56;
+    }
+
+    /* ===== Main Content ===== */
+    main {
+        max-width: 800px;
+        margin: 140px auto 60px;       /* Platz für Header + Abstand unten */
+        padding: 0 20px;
+        text-align: center;
+    }
+    main h1 {
+        font-size: 2.5rem;             /* etwas größer */
+        margin-bottom: 1.5rem;
+    }
+    .team-list {
+        list-style: none;
+        margin: 0 auto 2rem;
+        padding: 0;
+        max-width: 400px;
+        text-align: left;
+    }
+    .team-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+        font-size: 1.2rem;             /* etwas größer */
+    }
+
+    /* ===== Buttons ===== */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2rem;
+        padding: 1rem 3rem;            /* wie .btn-start */
+        background-color: #5c6c3d;
+        color: white;
+        border-radius: 25px;           /* runde Ecken */
+        border: none;
+        font-size: 1.5rem;             /* größere Beschriftung */
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        transition: transform .2s, background .2s;
+    }
+    .btn::before {
+        content: "←";                  /* Pfeil */
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
+    }
+    .btn:hover {
+        transform: scale(1.05);
+        background-color: #4e5b34;
+    }
+    .btn:focus {
+        outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header mit Navigation -->
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{% url 'startseite' %}">Home</a></li>
+        <li><a href="{% url 'uber_tool' %}">Über das Tool</a></li>
+        <li><a href="{% url 'entwicklerteam' %}">Entwicklerteam</a></li>
+        <li><a href="{% url 'kontakt' %}">Kontakt</a></li>
+        <li><a href="{% url 'hilfe' %}">Hilfe</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hauptbereich -->
+  <main>
+    <h1>Unser Entwicklerteam</h1>
+    <ul class="team-list">
+      <!-- Trage hier Eure Namen ein -->
+      <li>Theodor Aumann</li>
+      <li>Moritz Mohr</li>
+      <li>Daniel Heindorf</li>
+      <li>Tobias Maile</li>
+      <!-- … -->
+    </ul>
+
+  <!-- Zurück-Button -->
+   <a href="{% url 'startseite' %}">
+     <button class="btn">Zurück zur Startseite</button>
+   </a>
+  </main>
+
+</body>
+</html>

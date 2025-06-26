@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Über das Tool</title>
+  <style>
+    /* Reset & Grundlayout */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+      padding-top: 100px; /* Platz für fixierten Header */
+      text-align: center;
+    }
+    a { text-decoration: none; }
+
+    /* Header & Navigation */
+    header {
+      background-color: #5c6c3d;
+      padding: 25px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      position: fixed; top: 0; left: 0;
+      width: 100%; z-index: 1000;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    nav a {
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 8px 0;
+      transition: color .3s;
+    }
+    nav a:hover,
+    nav .active a {
+      color: #df9e56;
+    }
+
+    /* Content-Box */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .content p {
+      margin-bottom: 1rem;
+    }
+    .content ul {
+      margin-left: 1.5rem;
+      list-style: disc;
+    }
+
+    /* Zurück-Button */
+    .btn-back {
+    display: inline-flex;
+    align-items: center;
+    background-color: #5c6c3d;        /* grüner Hintergrund */
+    color: white;
+    padding: 1rem 2.5rem;             /* wie bei .btn-start */
+    font-size: 1.2rem;
+    border-radius: 25px;              /* runde Ecken */
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: transform .2s, background .2s;
+    margin-top: 2rem;
+    }
+    .btn-back::before {
+    content: "←";                      /* Pfeil vor dem Text */
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    }
+    .btn-back:hover {
+    transform: scale(1.05);
+    background-color: #4e5b34;        /* etwas dunkleres Grün beim Hover */
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <ul>
+        <li><a href="{% url 'startseite' %}">Home</a></li>
+        <li><a href="{% url 'uber_tool' %}">Über das Tool</a></li>
+        <li><a href="{% url 'entwicklerteam' %}">Entwicklerteam</a></li>
+        <li><a href="{% url 'kontakt' %}">Kontakt</a></li>
+        <li><a href="{% url 'hilfe' %}">Hilfe</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="content">
+    <h1>Über das Tool</h1>
+    <p>
+      Mit diesem interaktiven Gebäude-Bilanzierer führen Sie in wenigen Schritten eine
+      Energiebilanz Ihres Projekts durch und erhalten
+      auf übersichtliche Weise:
+    </p>
+    <ul>
+      <li>Live-Berechnung von Nutz-, End- und Primärenergiebedarf</li>
+      <li>3D-Grundriss-Visualisierung Ihrer Raumaufteilung</li>
+      <li>Konfiguration des Wandaufbaus mit U-Wert-Berechnung</li>
+      <li>Vergleich von Umweltkennzahlen (GWP, etc.)</li>
+    </ul>
+    <p>
+      Starten Sie einfach über den <em>Start</em>-Button auf der
+      <a href="{% url 'allg_angaben' %}">Startseite</a>.
+    </p>
+
+    <a href="{% url 'startseite' %}">
+    <button class="btn-back">Zurück zur Startseite</button>
+    </a>
+  </main>
+
+</body>
+</html>

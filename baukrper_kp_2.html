@@ -1,0 +1,524 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PV-Eingabe</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="robots" content="index,follow" />
+  <meta name="generator" content="GrapesJS Studio" />
+  <!-- Style via static -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body id="icm8-2-2-3-2" class="gjs-t-body">
+  <div id="iv4hwy-2-2-3-2" class="gjs-divider"></div>
+  <div data-type-role="flex-row" id="ie9na2-2-2" class="gjs-plg-flex-row">
+    <div data-type-role="flex-column" id="ijubk9-2-2" class="gjs-plg-flex-column"><a href="" id="ic9be-2-2-2-3-4-2"
+        class="gjs-t-button button">
+        <div id="itlw3i-2-2-3-4-2">
+          <div data-type-icon="" id="i9ezgk-2-4-2-4-4-2" class="gjs-icon"><svg version="1.0" id="Layer_1-2-4-2-4-2"
+              xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64"
+              enable-background="new 0 0 64 64" xml:space="preserve" fill="#000000">
+              <g id="SVGRepo_bgCarrier-4-2-4-2-4-2" stroke-width="0"></g>
+              <g id="SVGRepo_tracerCarrier-4-2-4-2-4-2" stroke-linecap="round" stroke-linejoin="round"></g>
+              <g id="SVGRepo_iconCarrier-4-2-4-2-4-2">
+                <path fill="#FFFFFFFF"
+                  d="M62.79,29.172l-28-28C34.009,0.391,32.985,0,31.962,0s-2.047,0.391-2.828,1.172l-28,28 c-1.562,1.566-1.484,4.016,0.078,5.578c1.566,1.57,3.855,1.801,5.422,0.234L8,33.617V60c0,2.211,1.789,4,4,4h16V48h8v16h16 c2.211,0,4-1.789,4-4V33.695l1.195,1.195c1.562,1.562,3.949,1.422,5.516-0.141C64.274,33.188,64.356,30.734,62.79,29.172z">
+                </path>
+              </g>
+            </svg></div>
+          <h1 id="i5cni-3-2-2-2-2-3-2" class="gjs-t-h1 title">HOME</h1>
+        </div>
+      </a></div>
+        <div data-type-role="flex-column" id="iso6ga-2-2" class="gjs-plg-flex-column">
+        <div data-type-role="flex-row" id="iui6uq-2-3-2" class="gjs-plg-flex-row">
+            <!-- Back-Button -->
+            <div data-type-role="flex-column" class="gjs-plg-flex-column">
+                <a href="{% url 'baukoerper_kp' %}" class="gjs-t-button button">
+                <div>Back</div>
+                </a>
+            </div>
+
+            <!-- Next-Button -->
+            <div data-type-role="flex-column" class="gjs-plg-flex-column">
+                <a href="{% url 'bauteil' %}" class="gjs-t-button button">
+                <div>Next</div>
+                </a>
+            </div>
+            </div>
+        </div>
+    <div data-type-role="flex-column" id="isf3db-2-2" class="gjs-plg-flex-column"><a href="./baukrper.html"
+        id="ic9be-2-2-3-3-2" class="gjs-t-button button">
+        <div id="itlw3i-2-3-3-2">
+          <div id="i3b05g-3-3-2">
+            <div>einfache/ komplexe Eingabe</div>
+          </div>
+        </div>
+      </a></div>
+  </div>
+  <header id="iypj-2-2-3-2-2" class="head"></header>
+  <div data-type-role="flex-row" id="iz3cc-2-2-3-2" class="gjs-plg-flex-row">
+    <div data-type-role="flex-column" id="i3bxl-2-2-3-2" class="gjs-plg-flex-column">
+      <form method="get" id="id10y-2-2-3-2"></form>
+    </div>
+  </div>
+  <div id="il0h-2-2-2-3-2" class="card">
+    <div id="ic5r8-2-2-2-3-2" class="gjs-custom-code">
+      <script src="https://cdn.babylonjs.com/babylon.js"></script>
+      <script>
+        (function () {
+          const canvas = document.getElementById("floorplan-canvas");
+          const engine = new BABYLON.Engine(canvas, true);
+          const scene = new BABYLON.Scene(engine);
+          scene.clearColor = new BABYLON.Color3(1, 1, 1);
+
+          const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2.5, Math.PI / 3, 50, BABYLON.Vector3.Zero(), scene);
+          camera.attachControl(canvas, true);
+
+          const directionalLight = new BABYLON.DirectionalLight("dirLight", new BABYLON.Vector3(-1, -2, -1), scene);
+          directionalLight.position = new BABYLON.Vector3(20, 40, 20);
+          directionalLight.intensity = 1.0;
+
+          const shadowGenerator = new BABYLON.ShadowGenerator(2048, directionalLight);
+          shadowGenerator.useBlurExponentialShadowMap = true;
+          shadowGenerator.blurKernel = 16;
+
+          function berechneSkalierung(room) {
+            return room.customProps?.breite > 0 ? room.width / room.customProps.breite : 1;
+          }
+
+          function getGrayColor(value) {
+            const grayValue = Math.max(0, Math.min(1, value));
+            return new BABYLON.Color3(grayValue, grayValue, grayValue);
+          }
+
+          const geschossHoehe = 2.2;
+          let aktuelleHoehe = 0;
+          let geschossGruppen = {};
+
+          const groundSize = 100;
+          const ground = BABYLON.MeshBuilder.CreateGround("bodenplatte", {
+            width: groundSize,
+            height: groundSize
+          }, scene);
+          ground.position.y = 0.01;
+          ground.receiveShadows = true;
+
+          const gradientSize = 512;
+          const texture = new BABYLON.DynamicTexture("gradientTex", { width: gradientSize, height: gradientSize }, scene, false);
+          const ctx = texture.getContext();
+          const gradient = ctx.createRadialGradient(gradientSize / 2, gradientSize / 2, gradientSize * 0.1, gradientSize / 2, gradientSize / 2, gradientSize * 0.5);
+          gradient.addColorStop(0, "rgba(150,150,150,0.3)");
+          gradient.addColorStop(1, "rgba(255,255,255,0)");
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, gradientSize, gradientSize);
+          texture.update();
+
+          const mat = new BABYLON.StandardMaterial("bodenMat", scene);
+          mat.diffuseTexture = texture;
+          mat.opacityTexture = texture;
+          mat.backFaceCulling = false;
+          mat.disableLighting = true;
+          ground.material = mat;
+
+          function erstelle3DFloorPlan(data) {
+            scene.meshes.forEach(m => { if (m.name !== "bodenplatte") m.dispose(); });
+            scene.transformNodes.forEach(n => { if (n.name !== "bodenplatte") n.dispose(); });
+            scene.textures.forEach(t => { if (t.name !== "gradientTex") t.dispose(); });
+
+            geschossGruppen = {};
+            aktuelleHoehe = 0;
+
+            const gruppen = {};
+            Object.entries(data).forEach(([geschossName, raeume]) => {
+              const gruppe = new BABYLON.TransformNode(`gruppe_${geschossName}`, scene);
+              raeume.forEach(room => {
+                const scale = berechneSkalierung(room);
+                const breite = room.width / scale;
+                const tiefe = room.height / scale;
+                const hoehe = geschossHoehe;
+
+                const box = BABYLON.MeshBuilder.CreateBox("raum", { width: breite, height: hoehe, depth: tiefe }, scene);
+                box.position.x = room.left / scale + breite / 2;
+                box.position.z = -(room.top / scale + tiefe / 2);
+                box.position.y = aktuelleHoehe + hoehe / 2;
+                box.parent = gruppe;
+
+                const mat = new BABYLON.StandardMaterial("mat", scene);
+                mat.diffuseColor = getGrayColor(0.5);
+                mat.alpha = 0.7;
+                box.material = mat;
+
+                const dynTex = new BABYLON.DynamicTexture("dynTex", 512, scene, true);
+                dynTex.drawText(room.text || "", null, 256, "bold 60px Arial", "black", "transparent", true);
+
+                const textMat = new BABYLON.StandardMaterial("textMat", scene);
+                textMat.diffuseTexture = dynTex;
+                textMat.emissiveColor = new BABYLON.Color3(0, 0, 0);
+                textMat.backFaceCulling = false;
+                textMat.diffuseTexture.hasAlpha = true;
+
+                const textPlane = BABYLON.MeshBuilder.CreatePlane("textPlane", {
+                  width: breite * 0.9,
+                  height: tiefe * 0.9
+                }, scene);
+                textPlane.position = new BABYLON.Vector3(box.position.x, box.position.y + 0.01, box.position.z);
+                textPlane.rotation = new BABYLON.Vector3(Math.PI / 2, 0, 0);
+                textPlane.material = textMat;
+                textPlane.parent = gruppe;
+              });
+              gruppen[geschossName] = gruppe;
+              aktuelleHoehe += geschossHoehe;
+            });
+
+            updateUI(gruppen);
+          }
+
+          function updateUI(gruppen) {
+            const ui = document.getElementById("floorplan-ui");
+            const buttons = ui.querySelectorAll('button');
+            buttons.forEach(button => button.remove());
+
+            Object.keys(gruppen).forEach(name => {
+              const btn = document.createElement("button");
+              btn.textContent = `☑ ${name}`;
+              btn.dataset.name = name;
+              btn.dataset.visible = "true";
+              btn.className = "fp-button";
+              btn.style.margin = "5px";
+              btn.onclick = () => {
+                const gruppe = gruppen[name];
+                const visible = btn.dataset.visible === "true";
+                gruppe.setEnabled(!visible);
+                btn.dataset.visible = (!visible).toString();
+                btn.style.backgroundColor = visible ? "#aaa" : "#1976d2";
+                btn.textContent = visible ? `☐ ${name}` : `☑ ${name}`;
+              };
+              ui.appendChild(btn);
+            });
+
+            const allBtn = document.createElement("button");
+            allBtn.textContent = "Alle zeigen";
+            allBtn.className = "fp-button";
+            allBtn.style.margin = "5px";
+            allBtn.onclick = () => {
+              Object.entries(gruppen).forEach(([name, gruppe]) => {
+                gruppe.setEnabled(true);
+                const btn = [...ui.children].find(b => b.dataset.name === name);
+                if (btn) {
+                  btn.dataset.visible = "true";
+                  btn.textContent = `☑ ${name}`;
+                  btn.style.backgroundColor = "#1976d2";
+                }
+              });
+            };
+            ui.appendChild(allBtn);
+          }
+
+          document.getElementById("floorplan-fileInput").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file && file.type === "application/json") {
+              const reader = new FileReader();
+              reader.onload = function (e) {
+                try {
+                  const jsonData = JSON.parse(e.target.result);
+                  erstelle3DFloorPlan(jsonData);
+                } catch (error) {
+                  alert("Fehler beim Verarbeiten der JSON-Datei.");
+                }
+              };
+              reader.readAsText(file);
+            } else {
+              alert("Bitte eine gültige JSON-Datei auswählen.");
+            }
+          });
+
+          engine.runRenderLoop(() => scene.render());
+          window.addEventListener("resize", () => engine.resize());
+        })();
+      </script>
+      <h1 id="i5cni-3-2-2-2-4-2" class="gjs-t-h1 title">Baukörper</h1>
+      <div id="idjnmrr-2" class="gjs-custom-code">
+
+        <body>
+          <div id="ui">
+            <h2>Wandaufbau Konfigurator</h2><label for="wallSelector">Wand auswählen:</label><select type="text"
+              id="wallSelector-2">
+              <option value="Fassade Nord">Fassade Nord</option>
+              <option value="Fassade Süd">Fassade Süd</option>
+              <option value="Fassade West">Fassade West</option>
+              <option value="Fassade Ost">Fassade Ost</option>
+              <option value="Dach">Dach</option>
+              <option value="Bodenplatte">Bodenplatte</option>
+            </select><label for="layerType">Schichttyp:</label><select type="text" id="layerType-2">
+              <option value="gipskarton">Gipskarton</option>
+              <option value="mineralwolle">Mineralwolle</option>
+              <option value="holz">Holz (KVH)</option>
+              <option value="osb">OSB-Platte</option>
+              <option value="folie">PE-Folie</option>
+              <option value="bitumen">Bitumenbahn</option>
+              <option value="ziegel">Ziegel</option>
+              <option value="putz">Putz</option>
+              <option value="beton">Beton</option>
+            </select><label for="layerThickness">Dicke (cm):</label><input type="number" id="layerThickness-2"
+              value="10" min="0.1" step="0.1" /><button type="button" id="addLayer-2">Schicht hinzufügen</button>
+            <div class="orientation-label">Innen</div>
+            <table id="layerList-2">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Typ</th>
+                  <th>Dicke (cm)</th>
+                  <th>R-Wert</th>
+                  <th>Aktion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="row">
+                  <td class="cell"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="orientation-label">Außen</div>
+            <div id="uValueDisplay-2">U-Wert: -</div>
+          </div><canvas id="renderCanvas"></canvas>
+          <script src="https://cdn.babylonjs.com/babylon.js"></script>
+          <script>
+            const canvas = document.getElementById("renderCanvas");
+            const engine = new BABYLON.Engine(canvas, true);
+            const scene = new BABYLON.Scene(engine);
+            scene.clearColor = new BABYLON.Color3(1, 1, 1);
+
+            const camera = new BABYLON.ArcRotateCamera("camera", Math.PI / 2, Math.PI / 3, 30, new BABYLON.Vector3(0, 1, 0), scene);
+            camera.attachControl(canvas, true);
+            const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+
+            const textureMap = {
+              gipskarton: "textures/gipskarton.jpg",
+              mineralwolle: "textures/daemmung.jpg",
+              holz: "textures/holz.jpg",
+              osb: "textures/osb.jpg",
+              folie: "textures/folie.jpg",
+              bitumen: "textures/bitumen.jpg",
+              ziegel: "textures/ziegel.jpg",
+              putz: "textures/putz.jpg",
+              beton: "textures/beton.jpg"
+            };
+
+            const lambdaMap = {
+              gipskarton: 0.25,
+              mineralwolle: 0.035,
+              holz: 0.13,
+              osb: 0.13,
+              folie: 0.3,
+              bitumen: 0.17,
+              ziegel: 0.8,
+              putz: 0.87,
+              beton: 2.1
+            };
+
+            const wallsData = {
+              "Fassade Nord": [],
+              "Fassade Süd": [],
+              "Fassade West": [],
+              "Fassade Ost": [],
+              "Dach": [],
+              "Bodenplatte": []
+            };
+
+            let currentWall = "Fassade Nord";
+
+            function createFadeGround() {
+              const ground = BABYLON.MeshBuilder.CreateGround("fadeGround", {
+                width: 60,
+                height: 60,
+                subdivisions: 1
+              }, scene);
+
+              const shaderMaterial = new BABYLON.ShaderMaterial("fadeGroundShader", scene, {
+                vertex: "fadeGround",
+                fragment: "fadeGround"
+              }, {
+                attributes: ["position", "uv"],
+                uniforms: ["worldViewProjection"]
+              });
+
+              shaderMaterial.backFaceCulling = false;
+              shaderMaterial.alphaMode = BABYLON.Engine.ALPHA_COMBINE;
+              shaderMaterial.disableDepthWrite = true;
+
+              ground.material = shaderMaterial;
+              ground.position.y = 0;
+            }
+
+
+
+            function createLayer(type, thickness, xOffset) {
+              const tex = textureMap[type];
+              const layerWidth = thickness / 10;
+              const size = 4;
+
+              const material = new BABYLON.StandardMaterial("mat", scene);
+              if (tex) {
+                const texture = new BABYLON.Texture(tex, scene);
+                texture.uScale = 1; texture.vScale = 1;
+                material.diffuseTexture = texture;
+                if (type === "folie") material.alpha = 0.5;
+              } else {
+                material.diffuseColor = new BABYLON.Color3(0.7, 0.7, 0.7);
+              }
+
+              const box = BABYLON.MeshBuilder.CreateBox("layer", {
+                width: layerWidth,
+                height: size,
+                depth: size
+              }, scene);
+
+              box.position.x = xOffset + layerWidth / 2;
+              box.position.y = size / 2;
+              box.material = material;
+              box.name = "layer";
+              return box;
+            }
+
+            function rebuildWall() {
+              scene.meshes.filter(m => m.name === "layer").forEach(m => m.dispose());
+              let currentX = 0;
+              wallsData[currentWall].forEach(layer => {
+                createLayer(layer.type, layer.thickness, currentX);
+                currentX += layer.thickness / 10;
+              });
+            }
+
+            function updateLayerTable() {
+              const tbody = document.querySelector("#layerList tbody");
+              tbody.innerHTML = "";
+              let totalR = 0;
+
+              wallsData[currentWall].forEach((layer, index) => {
+                const lambda = lambdaMap[layer.type];
+                const d_m = layer.thickness / 100;
+                const rValue = (lambda && d_m > 0) ? d_m / lambda : 0;
+                totalR += rValue;
+
+                const row = document.createElement("tr");
+                row.setAttribute("draggable", "true");
+                row.dataset.index = index;
+                row.innerHTML = `
+        <td>${index + 1}</td>
+        <td>${layer.type}</td>
+        <td>${layer.thickness}</td>
+        <td>${rValue.toFixed(3)}</td>
+        <td class="action-buttons">
+          <button onclick="removeLayer(${index})">🗑</button>
+        </td>
+      `;
+
+                row.addEventListener("dragstart", (e) => {
+                  e.dataTransfer.setData("text/plain", index);
+                  row.classList.add("dragging");
+                });
+
+                row.addEventListener("dragend", () => {
+                  row.classList.remove("dragging");
+                });
+
+                row.addEventListener("dragover", (e) => {
+                  e.preventDefault();
+                  row.classList.add("drag-over");
+                });
+
+                row.addEventListener("dragleave", () => {
+                  row.classList.remove("drag-over");
+                });
+
+                row.addEventListener("drop", (e) => {
+                  e.preventDefault();
+                  const fromIndex = parseInt(e.dataTransfer.getData("text/plain"), 10);
+                  const toIndex = parseInt(row.dataset.index, 10);
+
+                  const arr = wallsData[currentWall];
+                  const moved = arr.splice(fromIndex, 1)[0];
+                  arr.splice(toIndex, 0, moved);
+
+                  updateLayerTable();
+                  rebuildWall();
+                });
+
+                tbody.appendChild(row);
+              });
+
+              const Rgesamt = totalR + 0.13 + 0.04;
+              const uValue = Rgesamt > 0 ? (1 / Rgesamt).toFixed(3) : "-";
+              document.getElementById("uValueDisplay").innerHTML = `<strong>U-Wert:</strong> ${uValue} W/m²K`;
+            }
+
+            function addLayer() {
+              const type = document.getElementById("layerType").value;
+              const thickness = parseFloat(document.getElementById("layerThickness").value);
+              if (thickness <= 0 || isNaN(thickness)) {
+                alert("Ungültige Dicke!");
+                return;
+              }
+
+              wallsData[currentWall].push({ type, thickness });
+              updateLayerTable();
+              rebuildWall();
+            }
+
+            function switchWall(newWall) {
+              currentWall = newWall;
+              updateLayerTable();
+              rebuildWall();
+            }
+
+            window.removeLayer = function (index) {
+              wallsData[currentWall].splice(index, 1);
+              updateLayerTable();
+              rebuildWall();
+            };
+
+            document.getElementById("addLayer").addEventListener("click", addLayer);
+            document.getElementById("wallSelector").addEventListener("change", e => switchWall(e.target.value));
+
+            engine.runRenderLoop(() => scene.render());
+            window.addEventListener("resize", () => engine.resize());
+
+            BABYLON.Effect.ShadersStore["fadeGroundVertexShader"] = `
+    precision highp float;
+    // Attributes
+    attribute vec3 position;
+    attribute vec2 uv;
+    uniform mat4 worldViewProjection;
+    varying vec2 vUV;
+    void main(void) {
+      gl_Position = worldViewProjection * vec4(position, 1.0);
+      vUV = uv;
+    }
+  `;
+
+            BABYLON.Effect.ShadersStore["fadeGroundFragmentShader"] = `
+    precision highp float;
+    varying vec2 vUV;
+    void main(void) {
+      float dist = distance(vUV, vec2(0.5, 0.5));
+      float alpha = smoothstep(0.45, 0.8, 1.0 - dist);
+      vec3 color = vec3(0.8, 0.8, 0.8); // Hellgrau
+      gl_FragColor = vec4(color, alpha * 0.5);
+    }
+  `;
+
+            // Initial Setup
+            updateLayerTable();
+            rebuildWall();
+            createFadeGround();
+
+          </script>
+        </body>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
