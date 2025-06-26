@@ -319,10 +319,9 @@
     fetch(`/api/berechnung/?${params}`)
       .then(r => r.json())
       .then(data => {
-        // Beispielausgaben
-        document.getElementById("ausgabe_ne_abs").textContent   = data.nutzenergie.ne_absolut;
-        document.getElementById("ausgabe_ne_spec").textContent  = data.nutzenergie.ne_spezifisch;
-        // usw.
+        // Note: Output elements are not present on this page
+        // The API call is made but results are not displayed here
+        console.log('API response received:', data);
       })
       .catch(console.error);
   }
