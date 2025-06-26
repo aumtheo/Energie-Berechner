@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 
-{% load static %}
-
 <head>
   <title>GrapesJS Studio Home</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 
@@ -179,9 +177,9 @@
       <h2 id="ibosq-2-2-2-2" class="gjs-t-h2 subtitle"><span id="islcnl-2">Sonnenschutz</span></h2>
       <div id="il0h-3-2-3-3" class="card"><span id="iw5g8h-2-3"><strong id="inm4l1">Nein</strong></span></div>
       <h2 id="ibosq-2-2-2-2-3" class="gjs-t-h2 subtitle"><span id="islcnl-2-3">GWP Var. 1</span></h2>
-      <div id="il0h-3-2-3-3-2-2" class="card"><span id="iw5g8h-2-3-2-2"><strong id="i9chvp"> - a</strong></span></div>
+      <div id="il0h-3-2-3-3-2-2" class="card"><span id="iw5g8h-2-3-2-2"><strong id="i9chvp"> - a</strong></span></div>
       <h2 id="ibosq-2-2-2-2-3-2" class="gjs-t-h2 subtitle"><span id="islcnl-2-3-2">GWP Var. 2</span></h2>
-      <div id="il0h-3-2-3-3-2" class="card"><span id="iw5g8h-2-3-2"><strong id="i0n29q"> - a</strong></span></div>
+      <div id="il0h-3-2-3-3-2" class="card"><span id="iw5g8h-2-3-2"><strong id="i0n29q"> - a</strong></span></div>
     </div>
     <div data-type-role="flex-column" id="ijjvog-2" class="gjs-plg-flex-column">
       <div id="il0h-2-2" class="card">
@@ -207,9 +205,12 @@
               <div data-type-role="flex-column" class="gjs-plg-flex-column">
                 <select id="ort" name="ort" class="form-control">
                   <option value="">— bitte wählen —</option>
-                  {% for ort in orte %}
-                    <option value="{{ ort }}">{{ ort }}</option>
-                  {% endfor %}
+                  <option value="München">München</option>
+                  <option value="Berlin">Berlin</option>
+                  <option value="Hamburg">Hamburg</option>
+                  <option value="Köln">Köln</option>
+                  <option value="Frankfurt">Frankfurt</option>
+                  <option value="Stuttgart">Stuttgart</option>
                 </select>
               </div>
             </div>
@@ -248,7 +249,7 @@
     <!-- Logo ganz links -->
     <div data-type-role="flex-column" id="iy3ds-2" class="gjs-plg-flex-column">
       <img
-        src="{% static 'images/Logo.png' %}"
+        src="/static/images/Logo.png"
         alt="Mein Logo"
         id="ies6-2"
         class="logo"
@@ -256,7 +257,7 @@
     </div>
     <!-- Back-Button -->
     <div data-type-role="flex-column" id="ilnji-2" class="gjs-plg-flex-column">
-      <a href="{% url 'allg_angaben' %}" class="gjs-t-button button">
+      <a href="/allg-angaben" class="gjs-t-button button">
         <div>
           Back
         </div>
@@ -264,7 +265,7 @@
     </div>
     <!-- Next-Button -->
     <div data-type-role="flex-column" id="i7lnt-2" class="gjs-plg-flex-column">
-      <a href="{% url 'baukrper' %}" class="gjs-t-button button">Next</a>
+      <a href="/baukrper" class="gjs-t-button button">Next</a>
     </div>
     <!-- Platzhalter rechts, falls nötig -->
     <div data-type-role="flex-column" id="idpkn-2" class="gjs-plg-flex-column"></div>

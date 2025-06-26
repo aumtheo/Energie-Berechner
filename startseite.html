@@ -1,4 +1,3 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -109,11 +108,11 @@
   <header>
     <nav>
       <ul>
-        <li><a href="{% url 'startseite' %}">Home</a></li>
-        <li><a href="{% url 'uber_tool' %}">Über das Tool</a></li>
-        <li><a href="{% url 'entwicklerteam' %}">Entwicklerteam</a></li>
-        <li><a href="{% url 'kontakt' %}">Kontakt</a></li>
-        <li><a href="{% url 'hilfe' %}">Hilfe</a></li>
+        <li><a href="/startseite">Home</a></li>
+        <li><a href="/uber-tool">Über das Tool</a></li>
+        <li><a href="/entwicklerteam">Entwicklerteam</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/hilfe">Hilfe</a></li>
       </ul>
     </nav>
   </header>
@@ -121,10 +120,10 @@
   <!-- Hero-Section -->
   <section class="hero">
     <h1>Jetzt dein Gebäude bilanzieren</h1>
-    <img src="{% static 'images/Logo.png' %}"
+    <img src="/static/images/Logo.png"
          alt="G|iB SMART Logo"
          class="logo">
-  <a href="{% url 'allg_angaben' %}">
+  <a href="/allg-angaben">
     <button class="btn-start">Start</button>
   </a>
 
@@ -132,5 +131,3 @@
 
 </body>
 </html>
-
-
