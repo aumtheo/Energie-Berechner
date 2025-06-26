@@ -5,6 +5,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gebäude Bilanzierer</title>
   <link rel="stylesheet" href="static/css/style.css">
+  <style>
+    /* Reset & Grundlayout */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+    }
+    a {
+      text-decoration: none;
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: #5c6c3d;
+      padding: 25px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    nav a {
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 8px 0;
+      transition: color .3s;
+    }
+    nav a:hover {
+      color: #df9e56;
+    }
+
+    /* Hero-Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 100px);
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 100px;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      color: #333;
+    }
+    .hero .logo {
+      width: 400px;
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Start-Button */
+    .btn-start {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #5c6c3d;
+      color: white;
+      padding: 1rem 3rem;
+      font-size: 1.5rem;
+      border-radius: 25px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: transform .2s, background .2s;
+    }
+    .btn-start::before {
+      content: "▶︎";
+      margin-right: .5rem;
+      font-size: 1.2rem;
+    }
+    .btn-start:hover {
+      transform: scale(1.05);
+      background-color: #4e5b34;
+    }
+    .btn-start:focus {
+      outline: none;
+    }
+  </style>
 </head>
 <body>
 

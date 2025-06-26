@@ -86,10 +86,10 @@
         <div class="energy-card">
           <div class="energy-values">
             <div class="energy-value">
-              <span>- kwh/a</span>
+              <span id="ausgabe_ne_abs">- kwh/a</span>
             </div>
             <div class="energy-value">
-              <span>- kwh/m²a</span>
+              <span id="ausgabe_ne_spec">- kwh/m²a</span>
             </div>
           </div>
         </div>
@@ -313,12 +313,12 @@
           const neAbs = document.getElementById("ausgabe_ne_abs");
           const neSpec = document.getElementById("ausgabe_ne_spec");
           
-          if (neAbs && data.nutzenergie?.ne_absolut) {
-            neAbs.textContent = data.nutzenergie.ne_absolut;
+          if (neAbs && data.nutzenergie?.ne_gesamt) {
+            neAbs.textContent = data.nutzenergie.ne_gesamt + " kwh/a";
           }
           
           if (neSpec && data.nutzenergie?.ne_spezifisch) {
-            neSpec.textContent = data.nutzenergie.ne_spezifisch;
+            neSpec.textContent = data.nutzenergie.ne_spezifisch + " kwh/m²a";
           }
         })
         .catch(console.error);
