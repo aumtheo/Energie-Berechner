@@ -1,0 +1,26 @@
+{
+  "name": "energiebilanz-app",
+  "version": "1.0.0",
+  "description": "Energy balance calculation tool for buildings",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Build completed'",
+    "test": "echo 'No tests specified'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "path": "^0.12.7",
+    "cors": "^2.8.5"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "energy",
+    "building",
+    "calculation",
+    "sustainability"
+  ],
+  "author": "Energy Balance Team",
+  "license": "MIT"
+}
