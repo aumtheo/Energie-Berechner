@@ -21,7 +21,7 @@ a {
 
 /* Layout Components */
 .gjs-t-body {
-  padding-top: 80px;
+  padding-top: 0;
 }
 
 .gjs-divider {
@@ -48,20 +48,14 @@ a {
 .head {
   background-color: #5c6c3d;
   padding: 20px 0;
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   z-index: 100;
 }
 
 header {
   background-color: #5c6c3d;
-  padding: 25px 0;
+  padding: 15px 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
   z-index: 1000;
 }
@@ -96,6 +90,7 @@ nav a:hover {
   font-size: 1.4rem;
   margin: 15px 0 10px;
   color: #444;
+  font-weight: bold;
 }
 
 /* Cards & Containers */
@@ -217,16 +212,18 @@ footer {
   min-height: calc(100vh - 100px);
   padding: 40px 20px;
   text-align: center;
+  margin-top: 0;
 }
 
 .hero h1 {
   font-size: 3rem;
   margin-bottom: 2rem;
+  color: #333;
 }
 
 .hero .logo {
-  width: 60vw;
-  max-width: 600px;
+  width: 400px;
+  max-width: 100%;
   height: auto;
   margin-bottom: 2.5rem;
 }
@@ -292,4 +289,111 @@ footer {
 
 .btn-back:focus {
   outline: none;
+}
+
+/* Main Navigation Styles (based on image 3 and 4) */
+#ie9na2, #ie9na2-4, #ie9na2-7 {
+  background-color: #e79520;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+#ie9na2 .gjs-plg-flex-column, 
+#ie9na2-4 .gjs-plg-flex-column,
+#ie9na2-7 .gjs-plg-flex-column {
+  flex: 0 1 auto;
+  padding: 0;
+}
+
+#ie9na2 .button, 
+#ie9na2-4 .button,
+#ie9na2-7 .button {
+  background-color: #e79520;
+  border-radius: 0;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#ie9na2 .button:hover, 
+#ie9na2-4 .button:hover,
+#ie9na2-7 .button:hover {
+  background-color: #d68a1d;
+}
+
+/* Left sidebar styles */
+#ikncpe-2, #ikncpe-2-2, #ikncpe-2-3 {
+  background-color: #f5f5f5;
+  padding: 0;
+}
+
+#ikncpe-2 .subtitle, 
+#ikncpe-2-2 .subtitle,
+#ikncpe-2-3 .subtitle {
+  background-color: #5c6c3d;
+  color: white;
+  padding: 10px 15px;
+  margin: 0;
+  border-radius: 0;
+}
+
+#ikncpe-2 .card, 
+#ikncpe-2-2 .card,
+#ikncpe-2-3 .card {
+  border-radius: 0;
+  margin: 0 0 1px 0;
+  box-shadow: none;
+}
+
+/* Main content area */
+#ijjvog-2, #ijjvog-2-2, #ijjvog-2-3 {
+  padding: 20px;
+}
+
+#ijjvog-2 .card, 
+#ijjvog-2-2 .card,
+#ijjvog-2-3 .card {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #ddd;
+}
+
+/* Right sidebar */
+#i9g2x7-2, #i9g2x7-2-2, #i9g2x7-2-3 {
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+/* Footer styles */
+footer {
+  background-color: transparent;
+  border-top: none;
+  margin-top: 20px;
+}
+
+footer .logo {
+  max-width: 100px;
+}
+
+footer .button {
+  background-color: #5c6c3d;
+  color: white;
+  border-radius: 0;
+  padding: 10px 30px;
+}
+
+/* Logo styling for the GiB SMART logo */
+.logo {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Specific styles for the startseite hero section */
+.hero .logo {
+  width: 400px;
+  max-width: 100%;
 }

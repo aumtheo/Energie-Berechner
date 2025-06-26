@@ -14,12 +14,21 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files
 app.use('/static', express.static(path.join(__dirname, 'static')));
 
-// Create a placeholder logo if it doesn't exist
-const logoDir = path.join(__dirname, 'static', 'images');
-const logoPath = path.join(logoDir, 'Logo.png');
+// Create static directories if they don't exist
+const staticDir = path.join(__dirname, 'static');
+const imagesDir = path.join(staticDir, 'images');
+const cssDir = path.join(staticDir, 'css');
 
-if (!fs.existsSync(logoDir)) {
-  fs.mkdirSync(logoDir, { recursive: true });
+if (!fs.existsSync(staticDir)) {
+  fs.mkdirSync(staticDir, { recursive: true });
+}
+
+if (!fs.existsSync(imagesDir)) {
+  fs.mkdirSync(imagesDir, { recursive: true });
+}
+
+if (!fs.existsSync(cssDir)) {
+  fs.mkdirSync(cssDir, { recursive: true });
 }
 
 // Routes for HTML pages
@@ -148,6 +157,11 @@ app.get('/api/berechnung', (req, res) => {
     };
     
     res.json(mockData);
+});
+
+// Error handling for 404
+app.use((req, res) => {
+    res.status(404).send('Page not found');
 });
 
 // Start server
