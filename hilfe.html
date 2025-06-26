@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hilfe – Gebäude Bilanzierer</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <style>
     /* ===== Reset & Grundlayout ===== */
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -18,7 +19,7 @@
     /* ===== Header & Navigation ===== */
     header {
         background-color: #5c6c3d;
-        padding: 25px 0;                /* gleiches Padding wie bei anderen */
+        padding: 25px 0;               /* wie bei den anderen Templates */
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         position: fixed;
         top: 0; left: 0;
@@ -42,16 +43,26 @@
         color: #df9e56;
     }
 
-    /* ===== Hauptbereich ===== */
+    /* ===== Haupt-Content ===== */
     main {
         max-width: 800px;
-        margin: 140px auto 60px;        /* unter Header starten */
+        margin: 140px auto 60px;       /* unter Header starten */
         padding: 0 20px;
+        text-align: center;
     }
     main h1 {
         font-size: 2.5rem;
         margin-bottom: 1.5rem;
-        text-align: center;
+    }
+    .help-list {
+        list-style: none;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        text-align: left;
+        margin-left: 1.2rem;
+    }
+    .help-list li {
+        margin: 0.75rem 0;
     }
     main p {
         margin-bottom: 1rem;
@@ -67,7 +78,7 @@
         font-size: 1.1rem;
     }
 
-    /* ===== Zurück-Button ===== */
+    /* ===== Buttons ===== */
     .btn-back {
         display: inline-flex;
         align-items: center;
@@ -78,7 +89,7 @@
         color: white;
         border: none;
         border-radius: 25px;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         cursor: pointer;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         transition: transform .2s, background .2s;
@@ -86,7 +97,7 @@
     .btn-back::before {
         content: "←";
         margin-right: 0.5rem;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
     .btn-back:hover {
         transform: scale(1.05);
@@ -114,7 +125,7 @@
 
   <!-- Inhalt -->
   <main>
-    <h1>Hilfe &amp; Support</h1>
+    <h1>Hilfe & Support</h1>
     <p>
       Willkommen in unserer Hilfe-Sektion! Hier findest du Antworten auf häufige Fragen
       und Tipps, wie du das Gebäude-Bilanzierungstool am besten nutzt.
@@ -122,7 +133,7 @@
 
     <h2>Schritte im Überblick</h2>
     <ul class="help-list">
-      <li><strong>1. Start:</strong> Klicke auf „Start“, um mit der Grundrisserfassung zu beginnen.</li>
+      <li><strong>1. Start:</strong> Klicke auf „Start", um mit der Grundrisserfassung zu beginnen.</li>
       <li><strong>2. Grundriss:</strong> Lade deinen JSON-Grundriss hoch oder zeichne einen neuen.</li>
       <li><strong>3. Wandaufbau:</strong> Konfiguriere die Schichten jeder Wand für U-Wert-Berechnung.</li>
       <li><strong>4. Allgemeine Angaben:</strong> Ergänze Standort, Abmessungen und Energieparameter.</li>
