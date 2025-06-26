@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -9,10 +10,17 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('.'));
 
 // Serve static files
-app.use('/static', express.static('static'));
+app.use('/static', express.static(path.join(__dirname, 'static')));
+
+// Create a placeholder logo if it doesn't exist
+const logoDir = path.join(__dirname, 'static', 'images');
+const logoPath = path.join(logoDir, 'Logo.png');
+
+if (!fs.existsSync(logoDir)) {
+  fs.mkdirSync(logoDir, { recursive: true });
+}
 
 // Routes for HTML pages
 app.get('/', (req, res) => {
@@ -104,19 +112,35 @@ app.get('/api/berechnung', (req, res) => {
     // Mock calculation data
     const mockData = {
         nutzenergie: {
-            ne_absolut: 45000,
+            ne_heizung: 35000,
+            ne_tww: 10000,
+            ne_gesamt: 45000,
             ne_spezifisch: 58.8
         },
         endenergie: {
-            ee_gesamt: 52000,
-            ee_spezifisch: 68.0
+            ee_heizung: 38000,
+            ee_tww: 12000,
+            ee_lueftung: 5000,
+            ee_beleuchtung: 8000,
+            ee_prozesse: 3000,
+            ee_gesamt: 66000,
+            ee_spezifisch: 86.3
         },
         primaerenergie: {
             pe_gesamt: 78000,
             pe_spezifisch: 102.0
         },
+        pv: {
+            pv_ertrag: 15000,
+            strom_ueberschuss: 5000
+        },
+        gwp: {
+            gwp_var1: 33000,
+            gwp_var2: 19800
+        },
         gebaeudedaten: {
             hoehe: 8.4,
+            grundflaeche: 300,
             volumen: 2520,
             bgf: 900,
             nf: 765

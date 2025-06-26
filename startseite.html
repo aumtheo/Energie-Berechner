@@ -5,8 +5,45 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gebäude Bilanzierer</title>
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="static/css/style.css">
   <style>
+    /* Reset & Grundlayout */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #222;
+    }
+    a { text-decoration: none; }
+
+    /* Header & Navigation */
+    header {
+      background-color: #5c6c3d;
+      padding: 25px 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+    nav a {
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      padding: 8px 0;
+      transition: color .3s;
+    }
+    nav a:hover {
+      color: #df9e56;
+    }
+
     /* Hero-Section */
     .hero {
       display: flex;
@@ -16,6 +53,7 @@
       min-height: calc(100vh - 100px);
       padding: 40px 20px;
       text-align: center;
+      margin-top: 80px;
     }
     .hero h1 {
       font-size: 3rem;
@@ -55,34 +93,6 @@
     .btn-start:focus {
       outline: none;
     }
-    
-    /* Header & Navigation */
-    header {
-      background-color: #5c6c3d;
-      padding: 25px 0;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-    }
-    nav a {
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      padding: 8px 0;
-      transition: color .3s;
-    }
-    nav a:hover {
-      color: #df9e56;
-    }
   </style>
 </head>
 <body>
@@ -91,11 +101,11 @@
   <header>
     <nav>
       <ul>
-        <li><a href="{% url 'startseite' %}">Home</a></li>
-        <li><a href="{% url 'uber_tool' %}">Über das Tool</a></li>
-        <li><a href="{% url 'entwicklerteam' %}">Entwicklerteam</a></li>
-        <li><a href="{% url 'kontakt' %}">Kontakt</a></li>
-        <li><a href="{% url 'hilfe' %}">Hilfe</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/uber-tool">Über das Tool</a></li>
+        <li><a href="/entwicklerteam">Entwicklerteam</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/hilfe">Hilfe</a></li>
       </ul>
     </nav>
   </header>
@@ -103,10 +113,10 @@
   <!-- Hero-Section -->
   <section class="hero">
     <h1>Jetzt dein Gebäude bilanzieren</h1>
-    <img src="{% static 'images/Logo.png' %}"
+    <img src="static/images/Logo.png"
          alt="G|iB SMART Logo"
          class="logo">
-    <a href="{% url 'allg_angaben' %}">
+    <a href="/allg-angaben">
       <button class="btn-start">Start</button>
     </a>
   </section>
