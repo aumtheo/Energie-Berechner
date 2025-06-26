@@ -38,6 +38,7 @@ a {
   text-align: center;
   font-weight: bold;
   transition: background-color 0.3s;
+  min-width: 120px;
 }
 
 .home-button:hover {
@@ -237,6 +238,7 @@ footer {
   min-height: calc(100vh - 100px);
   padding: 40px 20px;
   text-align: center;
+  margin-top: 0;
 }
 
 .hero h1 {
@@ -306,6 +308,84 @@ header nav a {
 
 header nav a:hover {
   color: #df9e56;
+}
+
+/* Legacy styles for existing templates */
+.gjs-t-body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.gjs-divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 10px 0;
+}
+
+.gjs-plg-flex-row {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.gjs-plg-flex-column {
+  flex: 1;
+  padding: 0 5px;
+}
+
+.gjs-t-button.button {
+  display: inline-block;
+  background-color: #5c6c3d;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s;
+}
+
+.gjs-t-button.button:hover {
+  background-color: #4a5831;
+}
+
+.gjs-t-h1.title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.gjs-t-h2.subtitle {
+  background-color: #5c6c3d;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 1px;
+}
+
+.card {
+  background-color: white;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 10px;
+}
+
+.head {
+  height: 20px;
+}
+
+.logo {
+  max-height: 50px;
+  width: auto;
+}
+
+.gjs-icon {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 5px;
+}
+
+.gjs-custom-code {
+  padding: 10px;
 }
 
 /* Responsive Adjustments */
